@@ -9,7 +9,7 @@ def aOrAn(word):
 
 def validateYesOrNoInput(prompt):
   ACCEPTABLE_INPUTS = ['y', 'yes', 'n', 'no']
-  userInput = input(prompt)
+  userInput = str.lower(input(prompt)) 
   while True:
     for acceptableInput in ACCEPTABLE_INPUTS:
       if(userInput == acceptableInput):
@@ -25,8 +25,16 @@ def validateIntInput(prompt):
     except:
       print('Please enter a number')
 
-def generateTrip(lists):
+def generateNewTrip(lists):
   trip = []
   for list in lists:
     trip.append(random.choice(list))
+  return trip
+
+def changeSelectionOnTrip(selection, trip, lists):
+  i = selection - 1
+  newTripItem = trip[i]
+  while (newTripItem == trip[i]):
+    newTripItem = random.choice(lists[i])
+  trip[i] = newTripItem
   return trip
