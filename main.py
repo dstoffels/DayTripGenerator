@@ -1,50 +1,55 @@
 import random
-from helpers import aOrAn, intInput, yesOrNoInput
+from helpers import aOrAn, validateIntInput, validateYesOrNoInput, generateTrip
 
-destinations = ['Maui', 'San Diego', 'Fiji', 'Jacksonville', 'Chernobyl']
-entertainmentsByDay = [ 'parasailing', 'snorkeling', 'hiking', 'sight seeing', 'shopping']
-restaurants = ['The Caribou', 'The Blue', "3's Bar & Grill", 'The Excalibur', 'Wingstop', "Friendly's BBQ"]
-entertainmentsByNight = ['comedy club', 'concert', 'bowling alley', 'rollerskating rink', 'pub crawl']
-transportations = ['uber', 'tram', 'bicycle', 'limosine', 'helicopter']
-lists = [destinations, entertainmentsByDay, restaurants, entertainmentsByNight, transportations]
+DESTINATIONS = ['Maui', 'San Diego', 'Fiji', 'Jacksonville', 'Chernobyl']
+TRANSPORTATIONS = ['uber', 'tram', 'rickshaw', 'limosine', 'helicopter']
+DAYTIME_ACTIVITIES = [ 'parasailing', 'snorkeling', 'hiking', 'sight seeing', 'shopping']
+RESTAURANTS = ['The Caribou', 'The Blue', "3's Bar & Grill", 'The Excalibur', 'Wingstop', "Friendly's BBQ"]
+EVENING_ENTERTAINMENTS = ['comedy club', 'concert', 'bowling alley', 'rollerskating rink', 'pub crawl']
+LISTS = [DESTINATIONS, TRANSPORTATIONS, DAYTIME_ACTIVITIES, RESTAURANTS, EVENING_ENTERTAINMENTS]
 
-def generateRandomTrip(lists):
-  trip = []
-  for list in lists:
-    trip.append(random.choice(list))
-  return trip
-
-
+EDIT_PROMPT = f'''Choose an option:
+  1) New destination
+  2) Change mode of transportation
+  3) New daytime activity
+  4) New restaurant
+  5) New evening entertainment
+  6) Generate new trip
+  7) Book it!
+'''
 
 def displayTrip(trip):
   print(f'''
 You're heading to {trip[0]}!
-There, you'll start with some {trip[1]}, followed by dinner reservations at {trip[2]} and then {aOrAn(trip[3])} {trip[3]}.
-{aOrAn(trip[4])} {trip[4]} will get you to & from each stop.
+Where {aOrAn(trip[1])} {trip[1]} will take you {trip[2]}, to dinner at {trip[3]} and then {aOrAn(trip[4])} {trip[4]}.
 ''')
 
-#refactor to diplay options to change individual parts of the trip
-def confirmTrip():
-  userInput = intInput(f'''
-  Choose an option:
-  1) Change destination
-  2) ''')
-  # while (userInput == 'n'):
-  #   userInput = input('Book this trip? (y/n): ')
-  #   newTrip = generateRandomTrip(lists)
-  #   displayTrip(newTrip)
-  print('Your trip has been confirmed! Please check your email.')
-
 def promptNewTrip():
-  userInput = input('Are you ready for your trip? (y/n): ')
+  userInput = validateYesOrNoInput('Are you ready to book your trip? (y/n): ')
   if(userInput == 'y'):
-    newTrip = generateRandomTrip(lists)
-    displayTrip(newTrip)
-    confirmTrip()
+    newTrip = generateTrip(LISTS)
+    editTrip(newTrip)
   else:
     print('Come see us again if you change your mind!')
     exit()
 
+#refactor to diplay options to change individual parts of the trip
+def editTrip(newTrip):
+  booked = False
+  while not booked:
+    displayTrip(newTrip)
+    userInput = validateIntInput(EDIT_PROMPT)
+    if(userInput > 0 and userInput < 6):
+      i = userInput - 1
+      newTrip[i] = random.choice(LISTS[i])
+    elif(userInput == 6):
+      newTrip = generateTrip(LISTS)
+    elif(userInput == 7):
+      booked = True
+    else:
+      print('Please select between 1-7')
+
+  print(f'''Your trip has been confirmed! Please check your email.
+  ''')
+
 promptNewTrip()
-# allow user to pick which part of the trip they'd like to change
-# display numbered options: 1 new destination, 2 new restaurant, 3 new entertainment, 4 change transportation, 5 new trip, 6 book it!

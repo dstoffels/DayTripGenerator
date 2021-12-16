@@ -1,3 +1,5 @@
+import random
+
 def aOrAn(word):
   vowels = ['a','e','i','o','u']
   for vowel in vowels:
@@ -5,7 +7,7 @@ def aOrAn(word):
       return 'an'
   return 'a'
 
-def yesOrNoInput(prompt):
+def validateYesOrNoInput(prompt):
   ACCEPTABLE_INPUTS = ['y', 'yes', 'n', 'no']
   userInput = input(prompt)
   while True:
@@ -15,10 +17,16 @@ def yesOrNoInput(prompt):
     userInput = input("Please enter 'y' or 'n'.")
 
 
-def intInput(prompt):
+def validateIntInput(prompt):
   while True:
     try:
       response = int(input(prompt))
       return response
     except:
       print('Please enter a number')
+
+def generateTrip(lists):
+  trip = []
+  for list in lists:
+    trip.append(random.choice(list))
+  return trip
