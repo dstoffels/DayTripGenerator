@@ -1,34 +1,33 @@
-from helpers import aOrAn, buildOptionsString, validateIntInput, validateYesOrNoInput
-from tripHelpers import cancelTrip, displayTrip, confirmTrip, generateNewTrip, changeSelectionOnTrip
-from contants import INITIAL_USER_PROMPT, LISTS, OPTIONS_ERR_MSG, USER_CANCEL_MSG, USER_OPTIONS
+from helpers import buildOptionsString, validateIntInput, validateYesOrNoInput
+from tripHelpers import cancelTrip, confirmTrip, generateNewTrip, changeSelectionOnTrip
+from contants import INITIAL_USER_PROMPT, LISTS, OPTIONS_ERR_MSG
 
-
-def initialPrompt():
+def promptUserForNewTrip():
   userInput = validateYesOrNoInput(INITIAL_USER_PROMPT)
   if(userInput == 'y' or userInput =='yes'):
     newTrip = generateNewTrip(LISTS)
-    editTrip(newTrip)
+    promptUserToEditConfirmOrCancelTrip(newTrip)
   else:
-    print(USER_CANCEL_MSG)
-    exit()
+    cancelTrip()
 
-def editTrip(newTrip):
+def promptUserToEditConfirmOrCancelTrip(newTrip):
   prompt = buildOptionsString()
-  displayTrip(newTrip)
+
   while True:
     userSelection = validateIntInput(prompt)
 
-    if(userSelection > 0 and userSelection < 6):
-      newTrip = changeSelectionOnTrip(userSelection, newTrip, LISTS)
-      prompt = buildOptionsString()
-    elif(userSelection == 6):
-      newTrip = generateNewTrip(LISTS)
-      prompt = buildOptionsString()
-    elif(userSelection == 7):
-      confirmTrip(newTrip)
-    elif(userSelection == 8):
-      cancelTrip()
-    else:
-      prompt = OPTIONS_ERR_MSG
+    match userSelection:
+      case 1 | 2 | 3 | 4 | 5:
+        newTrip = changeSelectionOnTrip(userSelection, newTrip, LISTS)
+        prompt = buildOptionsString()
+      case 6:
+        newTrip = generateNewTrip(LISTS)
+        prompt = buildOptionsString()
+      case 7:
+        confirmTrip(newTrip)
+      case 8:
+        cancelTrip()
+      case _:
+        prompt = OPTIONS_ERR_MSG
 
-initialPrompt()
+promptUserForNewTrip()

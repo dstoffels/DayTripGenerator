@@ -1,6 +1,6 @@
 DESTINATIONS = ['Maui', 'San Diego', 'Fiji', 'Jacksonville', 'Chernobyl']
 TRANSPORTATIONS = ['uber', 'tram', 'rickshaw', 'limousine', 'helicopter']
-DAYTIME_ACTIVITIES = [ 'parasailing', 'snorkeling', 'hiking', 'sight seeing', 'shopping']
+DAYTIME_ACTIVITIES = [ 'parasailing', 'snorkeling', 'hiking', 'site seeing', 'shopping']
 RESTAURANTS = ['The Caribou', 'The Blue', "3's Bar & Grill", 'The Excalibur', 'Wingstop', "Friendly's BBQ"]
 EVENING_ENTERTAINMENTS = ['comedy club', 'concert', 'bowling alley', 'rollerskating rink', 'pub crawl']
 LISTS = [DESTINATIONS, TRANSPORTATIONS, DAYTIME_ACTIVITIES, RESTAURANTS, EVENING_ENTERTAINMENTS]

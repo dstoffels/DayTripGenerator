@@ -25,12 +25,11 @@ def validateIntInput(prompt):
       prompt = OPTIONS_ERR_MSG
 
 def buildOptionsString():
-  optionsString = f'''Choose an option:
-'''
+  optionsString = ''
   i = 1
   for option in USER_OPTIONS:
-    optionsString += f''' {i}) {option}\n'''
+    optionsString += f'''{i}) {option}\n'''
     i += 1
-  return optionsString
+  return optionsString + '\nChoose an option: '
 
 
