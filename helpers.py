@@ -1,4 +1,4 @@
-import random
+from contants import USER_OPTIONS
 
 def aOrAn(word):
   vowels = ['a','e','i','o','u']
@@ -16,7 +16,6 @@ def validateYesOrNoInput(prompt):
         return userInput 
     userInput = input("Please enter 'y' or 'n'.")
 
-
 def validateIntInput(prompt):
   while True:
     try:
@@ -25,16 +24,13 @@ def validateIntInput(prompt):
     except:
       print('Please enter a number')
 
-def generateNewTrip(lists):
-  trip = []
-  for list in lists:
-    trip.append(random.choice(list))
-  return trip
+def buildOptionsString():
+  optionsString = f'''Choose an option:
+'''
+  i = 1
+  for option in USER_OPTIONS:
+    optionsString += f''' {i}) {option}\n'''
+    i += 1
+  return optionsString
 
-def changeSelectionOnTrip(selection, trip, lists):
-  i = selection - 1
-  newTripItem = trip[i]
-  while (newTripItem == trip[i]):
-    newTripItem = random.choice(lists[i])
-  trip[i] = newTripItem
-  return trip
+
