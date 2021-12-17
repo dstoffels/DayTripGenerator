@@ -1,8 +1,8 @@
-from contants import USER_OPTIONS
+from contants import OPTIONS_ERR_MSG, USER_OPTIONS
 
 def aOrAn(word):
-  vowels = ['a','e','i','o','u']
-  for vowel in vowels:
+  VOWELS = ['a','e','i','o','u']
+  for vowel in VOWELS:
     if(word[0] == vowel):
       return 'an'
   return 'a'
@@ -22,7 +22,7 @@ def validateIntInput(prompt):
       response = int(input(prompt))
       return response
     except:
-      print('Please enter a number')
+      prompt = OPTIONS_ERR_MSG
 
 def buildOptionsString():
   optionsString = f'''Choose an option:

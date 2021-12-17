@@ -1,8 +1,7 @@
 from helpers import aOrAn, buildOptionsString, validateIntInput, validateYesOrNoInput
-from tripHelpers import displayTrip, confirmTrip, generateNewTrip, changeSelectionOnTrip
-from contants import INITIAL_USER_PROMPT, LISTS, USER_CANCEL_MSG, USER_OPTIONS
+from tripHelpers import cancelTrip, displayTrip, confirmTrip, generateNewTrip, changeSelectionOnTrip
+from contants import INITIAL_USER_PROMPT, LISTS, OPTIONS_ERR_MSG, USER_CANCEL_MSG, USER_OPTIONS
 
-editPrompt = buildOptionsString()
 
 def initialPrompt():
   userInput = validateYesOrNoInput(INITIAL_USER_PROMPT)
@@ -14,22 +13,22 @@ def initialPrompt():
     exit()
 
 def editTrip(newTrip):
-  booked = False
-  while not booked:
-    displayTrip(newTrip)
-    userSelection = validateIntInput(editPrompt)
+  prompt = buildOptionsString()
+  displayTrip(newTrip)
+  while True:
+    userSelection = validateIntInput(prompt)
+
     if(userSelection > 0 and userSelection < 6):
       newTrip = changeSelectionOnTrip(userSelection, newTrip, LISTS)
+      prompt = buildOptionsString()
     elif(userSelection == 6):
       newTrip = generateNewTrip(LISTS)
+      prompt = buildOptionsString()
     elif(userSelection == 7):
-      booked = True
       confirmTrip(newTrip)
     elif(userSelection == 8):
-      print(USER_CANCEL_MSG)
-      exit()
+      cancelTrip()
     else:
-      print(f'Please select between 1-{len(USER_OPTIONS)}')
-  exit()
+      prompt = OPTIONS_ERR_MSG
 
 initialPrompt()

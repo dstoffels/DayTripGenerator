@@ -10,3 +10,5 @@ USER_CANCEL_MSG = '\nCome see us again if you change your mind!\n'
 
 USER_OPTIONS = ['New destination', 'Change mode of transportation', 'New daytime activity', 
 'New restaurant', 'New evening entertainment', 'Generate new trip', 'Book it!', 'Cancel']
+
+OPTIONS_ERR_MSG = f'Please enter a number between 1-{len(USER_OPTIONS)}: '

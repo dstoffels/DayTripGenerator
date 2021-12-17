@@ -1,10 +1,13 @@
 import random
+from contants import USER_CANCEL_MSG
 from helpers import aOrAn
+
 
 def generateNewTrip(lists):
   trip = []
   for list in lists:
     trip.append(random.choice(list))
+  displayTrip(trip)
   return trip
 
 def displayTrip(trip):
@@ -20,8 +23,14 @@ def changeSelectionOnTrip(selection, trip, lists):
   while (newTripItem == trip[i]):
     newTripItem = random.choice(lists[i])
   trip[i] = newTripItem
+  displayTrip(trip)
   return trip
 
 def confirmTrip(trip):
   print(f'''Your trip to {trip[0]} has been confirmed! Please check your email.
   ''')
+  exit()
+
+def cancelTrip():
+  print(USER_CANCEL_MSG)
+  exit()
