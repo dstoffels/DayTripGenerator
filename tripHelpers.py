@@ -2,7 +2,6 @@ import random
 from contants import USER_CANCEL_MSG
 from helpers import aOrAn
 
-
 def generateNewTrip(lists):
   trip = []
   for list in lists:
@@ -16,7 +15,8 @@ You're heading to {trip[0]}!
 Where {aOrAn(trip[1])} {trip[1]} will take you {trip[2]}, to dinner at {trip[3]} and then {aOrAn(trip[4])} {trip[4]}.
 ''')
 
-# returns same trip list with user selected option randomly replaced
+# returns same trip list with user selected option randomly replaced,
+# prevents same option from showing up twice in a row
 def changeSelectionOnTrip(selection, trip, lists):
   i = selection - 1
   newTripItem = trip[i]
