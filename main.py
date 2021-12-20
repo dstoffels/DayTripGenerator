@@ -6,23 +6,26 @@ def promptUserForNewTrip():
   userInput = validateYesOrNoInput(INITIAL_USER_PROMPT)
   if(userInput == 'y' or userInput =='yes'):
     newTrip = generateNewTrip(LISTS)
-    promptUserToEditConfirmOrCancelTrip(newTrip)
+    promptUserToEditOrConfirmOrCancelTrip(newTrip)
   else:
     cancelTrip()
 
-def promptUserToEditConfirmOrCancelTrip(newTrip):
-  prompt = buildOptionsString()
+def promptUserToEditOrConfirmOrCancelTrip(newTrip):
+  prompt = ''
+  def resetPrompt():
+    prompt = buildOptionsString()
 
+  resetPrompt()
   while True:
     userSelection = validateIntInput(prompt)
 
     match userSelection:
       case 1 | 2 | 3 | 4 | 5:
         newTrip = changeSelectionOnTrip(userSelection, newTrip, LISTS)
-        prompt = buildOptionsString()
+        resetPrompt()
       case 6:
         newTrip = generateNewTrip(LISTS)
-        prompt = buildOptionsString()
+        resetPrompt()
       case 7:
         confirmTrip(newTrip)
       case 8:
